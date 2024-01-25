@@ -1,7 +1,6 @@
 import sys
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QMainWindow,QMenuBar
-from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
+from PyQt6.QtGui import QIcon, QFont
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QMainWindow, QMenuBar
 import random
 
 class RockPaperScissorsGame(QMainWindow):
@@ -10,8 +9,8 @@ class RockPaperScissorsGame(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('RPS')
-        self.setFixedSize(720,500)
+        self.setWindowTitle('КАМЕНЬ НОЖНИЦЫ БУМАГА')
+        self.setFixedSize(720, 500)
         self.setGeometry(500, 300, 500, 400)
         self.setWindowIcon(QIcon('RPS.png'))
 
@@ -28,7 +27,11 @@ class RockPaperScissorsGame(QMainWindow):
 
         layout = QVBoxLayout()
 
-        title_label = QLabel("Rock Paper Scissors")
+        title_label = QLabel("Rock Paper Scissors", self)
+
+
+        title_font = QFont("Monotype Corsiva", 50)  # Измените "Arial" на желаемый шрифт и 20 на желаемый размер
+        title_label.setFont(title_font)
         layout.addWidget(title_label)
 
         start_button = QPushButton("Start", self)
@@ -36,10 +39,6 @@ class RockPaperScissorsGame(QMainWindow):
         layout.addWidget(start_button)
 
         central_widget.setLayout(layout)
-
-
-
-
 
     def toggle_mute(self):
         print("Mute toggled")
@@ -57,7 +56,9 @@ class RockPaperScissorsWidget(QWidget):
     def initUI(self):
         layout = QVBoxLayout()
 
-        self.result_label = QLabel("")
+        self.result_label = QLabel("", self)
+        result_font = QFont("algerian", 20)  # Измените "Times" на желаемый шрифт и 16 на желаемый размер
+        self.result_label.setFont(result_font)
         layout.addWidget(self.result_label)
 
         rock_button = QPushButton("Rock", self)
@@ -82,11 +83,12 @@ class RockPaperScissorsWidget(QWidget):
     def determine_result(self, user_choice, computer_choice):
         if user_choice == computer_choice:
             return "It's a tie!"
-        elif (user_choice == "Rock" and computer_choice == "Scissors") or (user_choice == "Scissors" and computer_choice == "Paper") or (user_choice == "Paper" and computer_choice == "Rock"):
+        elif (user_choice == "Rock" and computer_choice == "Scissors") or (
+                user_choice == "Scissors" and computer_choice == "Paper") or (
+                user_choice == "Paper" and computer_choice == "Rock"):
             return "You win!"
         else:
             return "You lose!"
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
