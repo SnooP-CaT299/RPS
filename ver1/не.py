@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtGui import QIcon, QFont
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QMainWindow, QMenuBar, QGridLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QMainWindow, QMenuBar, QGridLayout
 from PyQt6.QtCore import Qt
 import random
 
@@ -26,24 +26,22 @@ class RockPaperScissorsGame(QMainWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
 
+        main_layout = QVBoxLayout(central_widget)
 
-        layout = QVBoxLayout()
-
-
-        title_label = QLabel("Rock\n Paper\n Scissors", self)
-        title_font = QFont("Monotype Corsiva", 70)  # Измените "Arial" на желаемый шрифт и 20 на желаемый размер
+        title_label = QLabel("\n Rock\n Paper\n Scissors", self)
+        title_font = QFont("Monotype Corsiva", 70)
         title_label.setFont(title_font)
-        title_label.setStyleSheet("color: rgb(4, 209, 86);")
-        layout.addWidget(title_label)
+        title_label.setStyleSheet("color: rgb(0, 0, 255);")
+        main_layout.addWidget(title_label, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-
+        button_layout = QHBoxLayout()
 
         start_button = QPushButton("Start", self)
         start_button.setFixedSize(150, 50)
+        button_layout.addWidget(start_button, alignment=Qt.AlignmentFlag.AlignCenter)  # Set alignment
         start_button.clicked.connect(self.start_game)
-        layout.addWidget(start_button)
 
-        central_widget.setLayout(layout)
+        main_layout.addLayout(button_layout)
 
     def toggle_mute(self):
         print("Mute toggled")
@@ -62,9 +60,9 @@ class RockPaperScissorsWidget(QWidget):
         layout = QVBoxLayout()
 
         self.result_label = QLabel("", self)
-        result_font = QFont("algerian", 20)  # Измените "Times" на желаемый шрифт и 16 на желаемый размер
+        result_font = QFont("algerian", 20)
         self.result_label.setFont(result_font)
-        self.result_label.setStyleSheet(("color: rgb(247, 198, 20);"))
+        self.result_label.setStyleSheet("color: rgb(0, 128, 0);")
         layout.addWidget(self.result_label)
 
         buttons_layout = QGridLayout()
@@ -76,13 +74,11 @@ class RockPaperScissorsWidget(QWidget):
 
         scissors_button = QPushButton("Scissors", self)
         scissors_button.setFixedSize(100, 50)
-        scissors_button.move(200, 100)
         scissors_button.clicked.connect(lambda: self.on_button_clicked("Scissors"))
         buttons_layout.addWidget(scissors_button, 0, 1)
 
         paper_button = QPushButton("Paper", self)
         paper_button.setFixedSize(100, 50)
-        paper_button.move(350, 100)
         paper_button.clicked.connect(lambda: self.on_button_clicked("Paper"))
         buttons_layout.addWidget(paper_button, 0, 2)
 
@@ -103,6 +99,7 @@ class RockPaperScissorsWidget(QWidget):
             return "You win!"
         else:
             return "You lose!"
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
