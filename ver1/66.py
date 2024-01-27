@@ -188,6 +188,13 @@ class RockPaperScissorsWidget(QWidget):
         self.player_image_label.setPixmap(player_pixmap.scaled(100, 100, Qt.AspectRatioMode.KeepAspectRatio))
         self.computer_image_label.setPixmap(computer_pixmap.scaled(100, 100, Qt.AspectRatioMode.KeepAspectRatio))
 
+    def toggle_music(self):
+        if self.music_button.isChecked():
+            self.player.play()
+            self.music_button.setIcon(QIcon("music_icon2.png"))
+        else:
+            self.player.pause()
+            self.music_button.setIcon(QIcon("music_icon.png"))
 
 class treePredictor():
     def __init__(self):
