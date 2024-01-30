@@ -35,7 +35,7 @@ class RockPaperScissorsGame(QMainWindow):
         main_layout = QVBoxLayout(central_widget)
 
         title_label = QLabel("\n Rock\n Paper\n Scissors", self)
-        title_font = QFont("Monotype Corsiva", 70)
+        title_font = QFont("Disco Duck", 70)
         title_label.setFont(title_font)
         title_label.setStyleSheet("color: rgb(4, 209, 86);")
         layout.addWidget(title_label)
@@ -88,7 +88,7 @@ class RockPaperScissorsWidget(QWidget):
         layout = QVBoxLayout()
 
         self.result_label = QLabel("", self)
-        result_font = QFont("algerian", 20)  # Измените  на желаемый шрифт и на желаемый размер
+        result_font = QFont("Disco Duck", 20)  # Измените  на желаемый шрифт и на желаемый размер
         self.result_label.setFont(result_font)
         self.result_label.setStyleSheet(("color: rgb(247, 198, 20);"))
         layout.addWidget(self.result_label, alignment=Qt.AlignmentFlag.AlignCenter)
