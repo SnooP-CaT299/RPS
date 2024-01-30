@@ -1,0 +1,1 @@
+background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:1, stop:0 rgba(148, 246, 253, 255), stop:0.145251 rgba(166, 241, 253, 255), stop:0.346369 rgba(177, 200, 250, 255), stop:0.52514 rgba(218, 170, 244, 255), stop:0.801136 rgba(249, 132, 246, 255), stop:1 rgba(246, 142, 228, 244));
