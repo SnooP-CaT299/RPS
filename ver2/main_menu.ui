@@ -37,10 +37,10 @@ background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:1, stop:0 rgb
     </property>
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>30</y>
-      <width>341</width>
-      <height>301</height>
+      <x>250</x>
+      <y>70</y>
+      <width>310</width>
+      <height>220</height>
      </rect>
     </property>
     <property name="font">
@@ -68,6 +68,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:48pt; color:#c90149;&quot;&gt;Paper &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:48pt; color:#c90149;&quot;&gt;Scissors&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QPushButton" name="start_button">
     <property name="geometry">
@@ -81,7 +84,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="styleSheet">
      <string notr="true">
 QPushButton{
-	color: rgb(48,186,143);
+	color: rgb(22, 158, 67);
 background-color: rgba(255,255,255,5);
 border: 1px solid rgba(255,255,255,5);
 border-radius: 7px;
@@ -106,14 +109,32 @@ font:24pt;
    <widget class="QPushButton" name="music_start">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>30</x>
       <y>40</y>
-      <width>41</width>
-      <height>31</height>
+      <width>23</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background:transparent;</string>
+     <string notr="true">
+QPushButton{
+	color: rgb(22, 158, 67);
+background-color: rgba(255,255,255,5);
+border: 1px solid rgba(255,255,255,5);
+border-radius: 7px;
+width: 230px;
+height: 50px;
+font:30pt;
+}
+QPushButton:hover{
+background-color: rgba(255, 225, 225,80);
+font:25pt;
+}
+QPushButton:pressed{
+background-color: rgba(255,255,255,150);
+font:24pt;
+}
+</string>
     </property>
     <property name="text">
      <string/>
@@ -133,9 +154,9 @@ font:24pt;
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
-      <width>91</width>
-      <height>51</height>
+      <y>10</y>
+      <width>75</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="styleSheet">
