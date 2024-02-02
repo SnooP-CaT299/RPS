@@ -204,6 +204,41 @@ font:14pt;
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="back_to_menu">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>10</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{
+	
+background-color: rgba(255,255,255,5);
+border: 1px solid rgba(255,255,255,5);
+border-radius: 7px;
+width: 230px;
+height: 50px;
+font:16pt;
+}
+QPushButton:hover{
+background-color: rgba(255, 225, 225,50);
+font:15pt;
+}
+QPushButton:pressed{
+background-color: rgba(255,255,255,90);
+font:13pt;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Back to
+ the menu</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources>
