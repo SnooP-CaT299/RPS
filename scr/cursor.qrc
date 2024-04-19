@@ -1,0 +1,19 @@
+<RCC>
+  <qresource prefix="cursor">
+    <file>cursors/Hotline Black Normal Select.png</file>
+    <file>cursors/Hotline Black Alternate Select.cur</file>
+    <file>cursors/Hotline Black Diagonal Resize 1.cur</file>
+    <file>cursors/Hotline Black Diagonal Resize 2.cur</file>
+    <file>cursors/Hotline Black Handwriting.cur</file>
+    <file>cursors/Hotline Black Help Select.cur</file>
+    <file>cursors/Hotline Black Horizontal Resize.cur</file>
+    <file>cursors/Hotline Black Link Select.cur</file>
+    <file>cursors/Hotline Black Move.cur</file>
+    <file>cursors/Hotline Black Precision Select.cur</file>
+    <file>cursors/Hotline Black Text Select.cur</file>
+    <file>cursors/Hotline Black Unavailable.cur</file>
+    <file>cursors/Hotline Black Vertical Resize.cur</file>
+    <file>cursors/Hotline Black Working In Background.cur</file>
+    <file>cursors/Hotline Busy.cur</file>
+  </qresource>
+</RCC>
