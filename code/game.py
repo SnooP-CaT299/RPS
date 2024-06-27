@@ -40,6 +40,9 @@ class treePredictor():
         self.losecount = 0;
         self.playrand = False
         self.mult = 1.0
+        self.consecutive_wins = 0
+        self.com_consecutive_wins = 0
+        self.round_result = ""
 
     def gameRes(self, c1, c2):
         i1 = self.choices.index(c1)
@@ -91,9 +94,29 @@ class treePredictor():
         self.prevchoice = i1
         self.prevres = self.gameRes(c, self.prevmove)
         if self.prevres == 1:
-            self.player_wins += 1
+            self.player_wins += 5
+            self.consecutive_wins += 1
+            self.com_consecutive_wins = 0
+            self.computer_wins -= 1
+            if self.player_wins < 0:
+                self.player_wins = 0
+            if self.consecutive_wins == 3:
+                self.player_wins += 10
         elif self.prevres == 2:
-            self.computer_wins += 1
+            self.computer_wins += 5
+            self.com_consecutive_wins += 1
+            self.consecutive_wins = 0
+            self.player_wins -= 1
+            if self.computer_wins < 0:
+                self.computer_wins = 0
+            if self.com_consecutive_wins == 3:
+                self.computer_wins += 10
+        elif self.prevres != 1 and self.prevres != 2:
+            pass
+
+        # Убедимся, что счет не отрицательный
+        self.player_wins = max(0, self.player_wins)
+        self.computer_wins = max(0, self.computer_wins)
 
 class MainMenu(QMainWindow):
     def __init__(self):
