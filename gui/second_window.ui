@@ -104,7 +104,7 @@ font: 16pt;</string>
       <x>650</x>
       <y>150</y>
       <width>129</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -254,8 +254,8 @@ font:13pt;
    <widget class="QLabel" name="result">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>60</y>
+      <x>240</x>
+      <y>90</y>
       <width>331</width>
       <height>121</height>
      </rect>
@@ -270,7 +270,7 @@ align: center;</string>
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="player">
@@ -278,7 +278,7 @@ align: center;</string>
      <rect>
       <x>20</x>
       <y>190</y>
-      <width>61</width>
+      <width>81</width>
       <height>61</height>
      </rect>
     </property>
@@ -297,7 +297,7 @@ align: center;</string>
      <rect>
       <x>680</x>
       <y>190</y>
-      <width>61</width>
+      <width>81</width>
       <height>61</height>
      </rect>
     </property>
@@ -306,6 +306,31 @@ align: center;</string>
 font: 25pt;
 color: rgb(115, 57, 172);
 align: center;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="countdown_label">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>200</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Disco Duck</family>
+      <pointsize>50</pointsize>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;</string>
     </property>
     <property name="text">
      <string/>

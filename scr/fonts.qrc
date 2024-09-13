@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="Font">
+    <file>font/discoduck.ttf</file>
+    <file>font/Roboto.ttf</file>
+    <file>font/Roboto-Italic.ttf</file>
+  </qresource>
+</RCC>

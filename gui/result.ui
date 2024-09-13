@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>res</class>
+ <widget class="QWidget" name="res">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Result</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:1, stop:0 rgba(148, 237, 253, 255), stop:0.142045 rgba(166, 241, 253, 255), stop:0.346369 rgba(177, 200, 250, 255), stop:0.517045 rgba(218, 170, 244, 255), stop:0.793041 rgba(249, 132, 246, 255), stop:0.991905 rgba(246, 142, 228, 255));
+font-family: Disco Duck;
+cursor: Hotline Black Normal Select</string>
+  </property>
+  <widget class="QLabel" name="reslabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Disco Duck</family>
+     <pointsize>21</pointsize>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;
+align: center;
+color: rgb(99, 27, 62);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="bttm">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>180</y>
+     <width>361</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QPushButton{
+	color: rgb(22, 158, 67);
+background-color: rgba(227,30,76,5);
+border: 1px solid rgba(227, 30, 76, 5);
+border-radius: 3px;
+width: 125px;
+height: 20px;
+font:21pt;
+}
+QPushButton:hover{
+background-color: rgba(227,30,76,70);
+font:26pt;
+}
+QPushButton:pressed{
+background-color: rgba(227,30,76,85);
+font:24pt;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Back To The Menu</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

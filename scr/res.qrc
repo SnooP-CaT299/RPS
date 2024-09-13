@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icon">
+    <file>icon/help.svg</file>
     <file>icon/menu.svg</file>
     <file>icon/pause.svg</file>
     <file>icon/play.svg</file>
