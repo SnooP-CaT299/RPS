@@ -2,10 +2,11 @@ import sys
 import random
 from random import randint
 from bisect import bisect_left
-from PyQt6.QtWidgets import QApplication, QVBoxLayout, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import QUrl, QTimer
-from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.uic import loadUi
+
+
 
 def weighted_choice(values, weights):
     total = 0
@@ -138,40 +139,37 @@ class AdvancedTreePredictor(treePredictor):
         self.prevchoice = i1
         self.prevres = self.gameRes(c, self.prevmove)
 
-        if self.prevres == 2:  # Player wins
-            self.player_wins += 5  # Base points for win
+        if self.prevres == 2:
+            self.player_wins += 5
             self.consecutive_wins += 1
             self.com_consecutive_wins = 0
 
             if self.consecutive_wins == 3:
-                self.player_wins += 10  # Additional points for three consecutive wins
+                self.player_wins += 10
                 self.consecutive_wins = 0
             elif self.computer_wins > 0:
-                self.computer_wins -= 3  # Deduct points from computer's score
+                self.computer_wins -= 5
 
-        elif self.prevres == 0:  # Computer wins
-            self.computer_wins += 5  # Base points for win
+        elif self.prevres == 0:
+            self.computer_wins += 5
             self.com_consecutive_wins += 1
             self.consecutive_wins = 0
 
             if self.com_consecutive_wins == 2:
-                self.player_wins -= 10  # Deduct points from player's score
+                self.player_wins -= 10
             elif self.com_consecutive_wins == 3:
-                self.computer_wins += 10  # Additional points for three consecutive wins
+                self.computer_wins += 10
 
-            # Сюда добавляем условие для 4-х побед
             if self.com_consecutive_wins == 4:
                 self.com_consecutive_wins = 0
             else:
-                # Если не 4 победы подряд, то отнимаем очки у игрока
                 if self.player_wins > 0:
-                    self.player_wins -= 3
+                    self.player_wins -= 5
 
         else:  # Tie or other result
             self.consecutive_wins = 0
             self.com_consecutive_wins = 0
 
-        # Ensure scores are not negative
         self.player_wins = max(0, self.player_wins)
         self.computer_wins = max(0, self.computer_wins)
 
@@ -181,32 +179,26 @@ class MainMenu(QMainWindow):
         super().__init__()
         loadUi("../gui/main_menu.ui", self)
 
-        # Подключаем кнопки к соответствующим действиям
         self.start_button.clicked.connect(self.openSecondWindow)
         self.radio_classic.clicked.connect(self.setMode)
         self.radio_advanced.clicked.connect(self.setMode)
         self.help_button.clicked.connect(self.showHelp)
-
-        # Изначально скрываем поле info
+        self.exit_button.clicked.connect(self.exit_game)
         self.info.hide()
-
-        # Изначальные значения
         self.mode = 'classic'
         self.tree_predictor = None
+    def exit_game(self):
+        self.close()
 
     def closeEvent(self, event):
-        """Очистка ресурсов при закрытии окна"""
-        # Разрываем соединения сигналов и слотов
         self.start_button.clicked.disconnect()
         self.radio_classic.clicked.disconnect()
         self.radio_advanced.clicked.disconnect()
         self.help_button.clicked.disconnect()
+        self.exit_button.clicked.disconnect()
 
-        # Очищаем дерево предсказателя, если оно было создано
         if self.tree_predictor:
             self.tree_predictor = None
-
-        # Уничтожаем окно и его виджеты
         self.deleteLater()
         event.accept()
 
@@ -216,61 +208,44 @@ class MainMenu(QMainWindow):
         elif self.radio_advanced.isChecked():
             self.mode = 'extended'
 
-        # Включение музыки
-        layout = QVBoxLayout()
-        layout.addWidget(self.music_start)
-
-        self.player = QMediaPlayer()
-        self.audioOutput = QAudioOutput()
-        self.player.setAudioOutput(self.audioOutput)
-        self.player.setSource(QUrl.fromLocalFile("D:/Pyt 3.12/RPS/scr/hit.mp3"))
-        self.audioOutput.setVolume(50)
-        self.player.play()
-
-    def toggle_music(self):
-        if self.music_start.isChecked():
-            self.player.play()
-        else:
-            self.player.pause()
-
     def openSecondWindow(self):
         if self.mode == 'classic':
             self.tree_predictor = treePredictor()
+            mode_text = "Classic"
         elif self.mode == 'extended':
             self.tree_predictor = AdvancedTreePredictor()
-        self.second_window = SecondWindow(self.tree_predictor)
+            mode_text = "Advanced"
+        self.second_window = SecondWindow(self.tree_predictor, mode_text)
         self.second_window.show()
         self.close()
 
     def showHelp(self):
-        # Показываем текстовое поле info и блокируем остальные элементы
         self.info.show()
         self.setWidgetsEnabled(False)
 
     def hideHelp(self):
-        # Скрываем текстовое поле info и разблокируем остальные элементы
         self.info.hide()
         self.setWidgetsEnabled(True)
 
     def setWidgetsEnabled(self, enabled):
-        # Блокировка/разблокировка всех виджетов, кроме help
+        # Блокировка/разблокировка всех виджетов
         self.start_button.setEnabled(enabled)
         self.radio_classic.setEnabled(enabled)
         self.radio_advanced.setEnabled(enabled)
-        self.music_start.setEnabled(enabled)
-        self.help_button.setEnabled(enabled)  # Не блокируем кнопку Help
+        self.exit_button.setEnabled(enabled)
+        self.help_button.setEnabled(enabled)
 
     def keyPressEvent(self, event):
-        # Проверяем, отображается ли info, и скрываем его при нажатии любой клавиши
         if self.info.isVisible():
-            self.hideHelp()  # Скрываем info и разблокируем виджеты
+            self.hideHelp()
 
 
 class SecondWindow(QMainWindow):
-    def __init__(self, tree_predictor):
+    def __init__(self, tree_predictor, mode_text):
         super().__init__()
         loadUi("../gui/second_window.ui", self)
         self.tree_predictor = tree_predictor
+        self.mode.setText(f"{mode_text}")
         self.menu.clicked.connect(self.openMainMenu)
         self.rock_button.clicked.connect(lambda: self.make_choice('Rock'))
         self.paper_button.clicked.connect(lambda: self.make_choice('Paper'))
@@ -278,23 +253,19 @@ class SecondWindow(QMainWindow):
         self.result.setText("")
         self.player.setText("0")
         self.computer.setText("0")
-
         self.round_counter = 0
 
         # Таймеры
         self.countdown_timer = QTimer(self)
         self.countdown_timer.timeout.connect(self.update_countdown)
 
-        # Таймер на 3 минуты для хода игрока
+        # Таймер для хода игрока
         self.move_timer = QTimer(self)
         self.move_timer.setSingleShot(True)
         self.move_timer.timeout.connect(self.on_timeout)
-
-        self.start_countdown(3)  # Начало отсчета с 3 секунд
+        self.start_countdown(3)
 
     def closeEvent(self, event):
-        """Очистка ресурсов при закрытии окна"""
-        # Остановка всех таймеров
         if self.countdown_timer.isActive():
             self.countdown_timer.stop()
         self.countdown_timer.deleteLater()
@@ -302,27 +273,21 @@ class SecondWindow(QMainWindow):
         if self.move_timer.isActive():
             self.move_timer.stop()
         self.move_timer.deleteLater()
-
-        # Очищаем дерево предсказателя
         self.tree_predictor = None
-
-        # Уничтожаем окно и его виджеты
         self.deleteLater()
         event.accept()
 
 
     def start_move_timer(self, duration_ms):
-         """Запускает таймер на заданное количество миллисекунд (duration_ms)."""
-         self.move_timer.start(duration_ms)  # Запускаем таймер на заданное время
-
+         self.move_timer.start(duration_ms)
     def start_countdown(self, seconds):
         self.remaining_time = seconds
-        self.countdown_label.setText(str(self.remaining_time))  # Установка начального значения
-        self.countdown_label.show()  # Показываем label
-        self.rock_button.setEnabled(False)  # Делаем кнопки недоступными
+        self.countdown_label.setText(str(self.remaining_time))
+        self.countdown_label.show()
+        self.rock_button.setEnabled(False)
         self.paper_button.setEnabled(False)
         self.scissors_button.setEnabled(False)
-        self.countdown_timer.start(1000)  # Устанавливаем таймер на 1 секунду
+        self.countdown_timer.start(1000)
 
     def openMainMenu(self):
         self.mainmenu = MainMenu()
@@ -336,41 +301,33 @@ class SecondWindow(QMainWindow):
         else:
             self.countdown_timer.stop()  # Останавливаем таймер обратного отсчета
             self.countdown_label.hide()  # Скрываем label
-            self.rock_button.setEnabled(True)  # Делаем кнопки доступными
+            self.rock_button.setEnabled(True)  # кнопки доступные
             self.paper_button.setEnabled(True)
             self.scissors_button.setEnabled(True)
 
-            # Запускаем таймер на 3 минуты после обратного отсчета
             if isinstance(self.tree_predictor, AdvancedTreePredictor):
-                self.start_move_timer(1 * 15 * 1000)  # Таймер на 3 минуты
+                self.start_move_timer(1 * 15 * 1000)  # Таймер на 15 сек
 
     def on_timeout(self):
-        """Вызывается, если игрок не сделал ход за 3 минуты"""
-        self.tree_predictor.player_wins = max(0, self.tree_predictor.player_wins - 1)  # Вычитаем одно очко у игрока
-        self.update_score_labels()  # Обновляем счет
-
+        self.tree_predictor.player_wins = max(0, self.tree_predictor.player_wins - 2)  #
+        self.update_score_labels()
 
     def make_choice(self, player_choice):
-        """Игрок сделал выбор, таймер сбрасывается"""
         if self.move_timer.isActive():
-            self.move_timer.stop()  # Останавливаем таймер на 3 минуты
+            self.move_timer.stop()
 
         # Компьютер делает свой выбор
         computer_choice = self.tree_predictor.predict()
 
-        # Проверяем случайный выбор
         if isinstance(self.tree_predictor, AdvancedTreePredictor) and self.tree_predictor.random_switch_used:
-            player_choice = random.choice(self.tree_predictor.choices)  # Выбираем случайный выбор для игрока
+            player_choice = random.choice(self.tree_predictor.choices)  # случайный выбор для игрока
             self.tree_predictor.random_switch_used = False  # Сброс флага после использования
 
-        # Сохраняем данные для анализа
         self.tree_predictor.store(player_choice)
 
-        # Определяем победителя
         winner = self.determine_winner(player_choice, computer_choice)
         self.round_counter += 1
 
-        # Вывод результата с указанием оригинального и измененного выбора игрока
         result_text = f"Player: {player_choice}\nComputer: {computer_choice}\nResult: {winner}"
         self.result.setText(result_text)
 
@@ -382,8 +339,7 @@ class SecondWindow(QMainWindow):
             self.start_new_round()
 
     def start_new_round(self):
-        """Запуск нового раунда после хода"""
-        self.start_countdown(3)  # Начинаем отсчет перед следующим раундом
+        self.start_countdown(3)
 
     def determine_winner(self, player_choice, computer_choice):
         if player_choice == computer_choice:
@@ -418,28 +374,17 @@ class ResultWindow(QMainWindow):
             result_text = f"Computer wins\nScore: Player: {player_wins} \n Computer: {computer_wins}"
         else:
             result_text = f"Tie\nScore: Player: {player_wins} \n Computer: {computer_wins}"
-
-            # Устанавливаем текст в label res
         self.reslabel.setText(result_text)
-
-        # Подключаем кнопки
-        self.bttm.clicked.connect(self.restart_game)  # Кнопка перезапуска игры
+        self.bttm.clicked.connect(self.restart_game)
 
     def closeEvent(self, event):
-        """Очистка ресурсов при закрытии окна"""
-        # Разрываем соединения сигналов и слотов
         self.bttm.clicked.disconnect()
-
-        # Уничтожаем окно и его виджеты
         self.deleteLater()
         event.accept()
 
     def restart_game(self):
-        # Реализация перезапуска игры
-        self.close()  # Закрываем окно результатов
-
-        # Здесь можно добавить логику для перезапуска игры, например, открытие главного меню
-        self.main_menu = MainMenu()  # Предполагается, что есть класс MainMenu
+        self.close()
+        self.main_menu = MainMenu()
         self.main_menu.show()
 
 if __name__ == '__main__':

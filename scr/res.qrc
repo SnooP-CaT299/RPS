@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icon">
+    <file>icon/smile.ico</file>
+    <file>icon/exit.svg</file>
     <file>icon/help.svg</file>
     <file>icon/menu.svg</file>
     <file>icon/pause.svg</file>
